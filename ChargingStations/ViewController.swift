@@ -25,14 +25,14 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: Actions
-    @IBAction func FindClosestStation(_ sender: UIButton) {
-        print("hi tommy")
+    // MARK: Action: FindClosestStations
+    
+    @IBAction func FindClosestStations(_ sender: UIButton) {
         
         // MARK: Google Maps
         let camera = GMSCameraPosition.camera(withLatitude: 37.7749, longitude: -122.4194, zoom: 6.0)
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        mapView.isMyLocationEnabled = true
+//        mapView.isMyLocationEnabled = true
         view = mapView
         
         Alamofire.request("https://guarded-garden-39811.herokuapp.com/lat/37.7749/long/-122.4194").responseJSON { response in
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
                     
                     let lat = info["Latitude"] as! Double
                     let long = info["Longitude"] as! Double
-    
+                    
                     print(lat)
                     print(long)
                     
@@ -63,11 +63,13 @@ class ViewController: UIViewController {
         }
     }
     
+    // MARK: Action: FindStationsAlongRoute
+    
     @IBAction func FindStationsAlongRoute(_ sender: UIButton) {
         // MARK: Google Maps
-        let camera = GMSCameraPosition.camera(withLatitude: 30, longitude: 40, zoom: 6.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 37.7749, longitude: -122.4194, zoom: 6.0)
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        mapView.isMyLocationEnabled = true
+//        mapView.isMyLocationEnabled = true
         view = mapView
         
         Alamofire.request("https://guarded-garden-39811.herokuapp.com/start/lat/39.733501/long/-104.992597/end/lat/39.916591/long/-104.930168").responseJSON { response in
@@ -104,4 +106,3 @@ class ViewController: UIViewController {
         }
     }
 }
-
