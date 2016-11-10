@@ -29,11 +29,14 @@ class ViewController: UIViewController {
     
     @IBAction func FindClosestStations(_ sender: UIButton) {
         
+        let screenSize: CGRect = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height
+        
         // MARK: Google Maps
         let camera = GMSCameraPosition.camera(withLatitude: 37.7749, longitude: -122.4194, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-//        mapView.isMyLocationEnabled = true
-        view = mapView
+        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 60, width: screenWidth, height: screenHeight - 60), camera: camera)
+        self.view.addSubview(mapView)
         
         Alamofire.request("https://guarded-garden-39811.herokuapp.com/lat/37.7749/long/-122.4194").responseJSON { response in
             
@@ -51,9 +54,6 @@ class ViewController: UIViewController {
                     let lat = info["Latitude"] as! Double
                     let long = info["Longitude"] as! Double
                     
-                    print(lat)
-                    print(long)
-                    
                     let position = CLLocationCoordinate2DMake(lat, long)
                     let marker = GMSMarker(position: position)
                     marker.title = "Hello World"
@@ -66,11 +66,15 @@ class ViewController: UIViewController {
     // MARK: Action: FindStationsAlongRoute
     
     @IBAction func FindStationsAlongRoute(_ sender: UIButton) {
+        
+        let screenSize: CGRect = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height
+        
         // MARK: Google Maps
-        let camera = GMSCameraPosition.camera(withLatitude: 37.7749, longitude: -122.4194, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-//        mapView.isMyLocationEnabled = true
-        view = mapView
+        let camera = GMSCameraPosition.camera(withLatitude: 39.733501, longitude: -104.992597, zoom: 6.0)
+        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 60, width: screenWidth, height: screenHeight-60), camera: camera)
+        self.view.addSubview(mapView)
         
         Alamofire.request("https://guarded-garden-39811.herokuapp.com/start/lat/39.733501/long/-104.992597/end/lat/39.916591/long/-104.930168").responseJSON { response in
             
@@ -93,9 +97,6 @@ class ViewController: UIViewController {
                     
                     let lat = info["Latitude"] as! Double
                     let long = info["Longitude"] as! Double
-                    
-                    print(lat)
-                    print(long)
                     
                     let position = CLLocationCoordinate2DMake(lat, long)
                     let marker = GMSMarker(position: position)

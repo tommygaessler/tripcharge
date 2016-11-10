@@ -21,20 +21,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z2S-Wf-Wx3">
-                                <rect key="frame" x="165" y="247" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Page 1"/>
-                                <connections>
-                                    <segue destination="L6F-sK-xkh" kind="show" id="crJ-0B-xWo"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfZ-5a-joa">
-                                <rect key="frame" x="163" y="318" width="48" height="30"/>
+                                <rect key="frame" x="99" y="318" width="177" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Page 2"/>
+                                <state key="normal" title="Find Stations Along Route"/>
                                 <connections>
                                     <segue destination="TIX-yT-4je" kind="show" id="yAN-SV-xJx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7mm-sw-O2e">
+                                <rect key="frame" x="116" y="219" width="145" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Find Closest Stations"/>
+                                <connections>
+                                    <segue destination="L6F-sK-xkh" kind="show" id="1Ry-Ei-SXC"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -66,7 +66,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRw-5P-Hdc">
-                                <rect key="frame" x="182" y="28" width="177" height="30"/>
+                                <rect key="frame" x="182" y="20" width="177" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Find Stations Along Route"/>
                                 <connections>
