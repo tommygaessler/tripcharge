@@ -22,8 +22,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SgD-Wl-Q1L">
-                                <rect key="frame" x="16" y="124" width="343" height="30"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SgD-Wl-Q1L">
+                                <rect key="frame" x="16" y="124" width="343" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="343" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OzB-Gx-34b">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -32,12 +32,19 @@
                                             <action selector="FindClosestStation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W97-D1-cGG"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9h-4W-v66">
+                                        <rect key="frame" x="0.0" y="30" width="343" height="30"/>
+                                        <state key="normal" title="Find Stations Along Route"/>
+                                        <connections>
+                                            <action selector="FindStationsAlongRoute:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bBO-H7-CjI"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="SgD-Wl-Q1L" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="60" id="2ME-Od-gCg"/>
+                            <constraint firstItem="SgD-Wl-Q1L" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="104" id="2ME-Od-gCg"/>
                             <constraint firstItem="SgD-Wl-Q1L" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="JnY-FV-wKq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="SgD-Wl-Q1L" secondAttribute="trailing" id="tE1-lI-hss"/>
                         </constraints>
