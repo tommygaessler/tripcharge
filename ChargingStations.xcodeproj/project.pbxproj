@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0763F4AA35CA49D2618F34D7 /* Pods_ChargingStationsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85D2246EE2E11B21922A9D92 /* Pods_ChargingStationsTests.framework */; };
 		2627A3A81DD3B90700010959 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2627A3A71DD3B90700010959 /* AppDelegate.swift */; };
 		2627A3AA1DD3B90700010959 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2627A3A91DD3B90700010959 /* ViewController.swift */; };
 		2627A3AD1DD3B90700010959 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2627A3AB1DD3B90700010959 /* Main.storyboard */; };
 		2627A3AF1DD3B90700010959 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2627A3AE1DD3B90700010959 /* Assets.xcassets */; };
 		2627A3B21DD3B90700010959 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2627A3B01DD3B90700010959 /* LaunchScreen.storyboard */; };
 		2627A3BD1DD3B90700010959 /* ChargingStationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2627A3BC1DD3B90700010959 /* ChargingStationsTests.swift */; };
+		26F42D371DD3CA5F000BEDB6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26F42D361DD3CA5F000BEDB6 /* CoreLocation.framework */; };
+		920D35B8EE78BED0AE030E74 /* Pods_ChargingStations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1F478FED5F069DAA088D96A /* Pods_ChargingStations.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B074A5236D8DCB040B9762F /* Pods-ChargingStationsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargingStationsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChargingStationsTests/Pods-ChargingStationsTests.release.xcconfig"; sourceTree = "<group>"; };
 		2627A3A41DD3B90700010959 /* ChargingStations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChargingStations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2627A3A71DD3B90700010959 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2627A3A91DD3B90700010959 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +40,12 @@
 		2627A3B81DD3B90700010959 /* ChargingStationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChargingStationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2627A3BC1DD3B90700010959 /* ChargingStationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingStationsTests.swift; sourceTree = "<group>"; };
 		2627A3BE1DD3B90700010959 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		26F42D361DD3CA5F000BEDB6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		58238CB33286C98B7F136FC3 /* Pods-ChargingStations.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargingStations.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChargingStations/Pods-ChargingStations.debug.xcconfig"; sourceTree = "<group>"; };
+		7B0BD0B99D9081FD2B604AAA /* Pods-ChargingStationsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargingStationsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChargingStationsTests/Pods-ChargingStationsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		85D2246EE2E11B21922A9D92 /* Pods_ChargingStationsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargingStationsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D023F104EE86E75E2D519C4E /* Pods-ChargingStations.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargingStations.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChargingStations/Pods-ChargingStations.release.xcconfig"; sourceTree = "<group>"; };
+		D1F478FED5F069DAA088D96A /* Pods_ChargingStations.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargingStations.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26F42D371DD3CA5F000BEDB6 /* CoreLocation.framework in Frameworks */,
+				920D35B8EE78BED0AE030E74 /* Pods_ChargingStations.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0763F4AA35CA49D2618F34D7 /* Pods_ChargingStationsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +75,8 @@
 				2627A3A61DD3B90700010959 /* ChargingStations */,
 				2627A3BB1DD3B90700010959 /* ChargingStationsTests */,
 				2627A3A51DD3B90700010959 /* Products */,
+				B59380F47E63EA9FB311E3CD /* Pods */,
+				9C153DA4FD7FC35E64BE0A3A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +111,27 @@
 			path = ChargingStationsTests;
 			sourceTree = "<group>";
 		};
+		9C153DA4FD7FC35E64BE0A3A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				26F42D361DD3CA5F000BEDB6 /* CoreLocation.framework */,
+				D1F478FED5F069DAA088D96A /* Pods_ChargingStations.framework */,
+				85D2246EE2E11B21922A9D92 /* Pods_ChargingStationsTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B59380F47E63EA9FB311E3CD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				58238CB33286C98B7F136FC3 /* Pods-ChargingStations.debug.xcconfig */,
+				D023F104EE86E75E2D519C4E /* Pods-ChargingStations.release.xcconfig */,
+				7B0BD0B99D9081FD2B604AAA /* Pods-ChargingStationsTests.debug.xcconfig */,
+				0B074A5236D8DCB040B9762F /* Pods-ChargingStationsTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -103,9 +139,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2627A3C11DD3B90700010959 /* Build configuration list for PBXNativeTarget "ChargingStations" */;
 			buildPhases = (
+				1D8E06EEEFD291FB9F91598E /* [CP] Check Pods Manifest.lock */,
 				2627A3A01DD3B90700010959 /* Sources */,
 				2627A3A11DD3B90700010959 /* Frameworks */,
 				2627A3A21DD3B90700010959 /* Resources */,
+				876CA5E357C51EF465533FC7 /* [CP] Embed Pods Frameworks */,
+				56C8A07C44F9DA14D74CD2B5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -120,9 +159,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2627A3C41DD3B90700010959 /* Build configuration list for PBXNativeTarget "ChargingStationsTests" */;
 			buildPhases = (
+				D60554FF31C4C472E93C7F6C /* [CP] Check Pods Manifest.lock */,
 				2627A3B41DD3B90700010959 /* Sources */,
 				2627A3B51DD3B90700010959 /* Frameworks */,
 				2627A3B61DD3B90700010959 /* Resources */,
+				B4E39D55A3B7865956D6863C /* [CP] Embed Pods Frameworks */,
+				C356E185425332F2F00FB25A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -193,6 +235,99 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1D8E06EEEFD291FB9F91598E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		56C8A07C44F9DA14D74CD2B5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChargingStations/Pods-ChargingStations-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		876CA5E357C51EF465533FC7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChargingStations/Pods-ChargingStations-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B4E39D55A3B7865956D6863C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChargingStationsTests/Pods-ChargingStationsTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C356E185425332F2F00FB25A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChargingStationsTests/Pods-ChargingStationsTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D60554FF31C4C472E93C7F6C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2627A3A01DD3B90700010959 /* Sources */ = {
@@ -337,6 +472,7 @@
 		};
 		2627A3C21DD3B90700010959 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58238CB33286C98B7F136FC3 /* Pods-ChargingStations.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ChargingStations/Info.plist;
@@ -349,6 +485,7 @@
 		};
 		2627A3C31DD3B90700010959 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D023F104EE86E75E2D519C4E /* Pods-ChargingStations.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ChargingStations/Info.plist;
@@ -361,6 +498,7 @@
 		};
 		2627A3C51DD3B90700010959 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B0BD0B99D9081FD2B604AAA /* Pods-ChargingStationsTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -375,6 +513,7 @@
 		};
 		2627A3C61DD3B90700010959 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B074A5236D8DCB040B9762F /* Pods-ChargingStationsTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -406,6 +545,7 @@
 				2627A3C31DD3B90700010959 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2627A3C41DD3B90700010959 /* Build configuration list for PBXNativeTarget "ChargingStationsTests" */ = {
 			isa = XCConfigurationList;
@@ -414,6 +554,7 @@
 				2627A3C61DD3B90700010959 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
