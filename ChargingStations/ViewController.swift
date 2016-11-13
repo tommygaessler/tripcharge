@@ -5,6 +5,19 @@
 //  Created by Tommy Gaessler on 11/9/16.
 //  Copyright © 2016 Tommy Gaessler. All rights reserved.
 //
+// Goals:
+// 2. Use current location as option for finding closest charger
+// 3. Use current location as option for starting point
+// 4. When you click on a pin there will be a link to route to it and open google maps
+//
+// Stretch:
+// 1. Change inputs to accept Addresses instead of cords (mostly server side work)
+// 2. Add route line from starting point to destination that is fatest and hits most chargers
+// 3. Add route line to closest charger when finding nearest charger
+// 4. Add ability to send put post and delete requests to open charge api if charging info needs to be updated
+// 5. See how many charging spots are currently availble when you click on pin
+// 6. See how many total charging spots there are
+// 7. Check if the price is free, if not list the price
 
 import UIKit
 import GoogleMaps
@@ -42,10 +55,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     
     @IBAction func FindClosestStations(_ sender: UIButton) {
         
-        
         // MARK: Check if input is empty or invalid
         
-        if CurrentLat.text!.isEmpty || CurrentLong.text!.isEmpty {
+        if CurrentLat.text!.isEmpty || CurrentLong.text!.isEmpty || NumberFormatter().number(from: CurrentLat.text!) == nil || NumberFormatter().number(from: CurrentLong.text!) == nil {
             
             let alertController = UIAlertController(title: "ChargingStations", message:
                 "Please Enter Valid Coordinates", preferredStyle: UIAlertControllerStyle.alert)
@@ -112,7 +124,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         
         // MARK: Check if input is empty or invalid
         
-        if StartLat.text!.isEmpty || StartLong.text!.isEmpty || EndLat.text!.isEmpty || EndLong.text!.isEmpty {
+        if StartLat.text!.isEmpty || StartLong.text!.isEmpty || EndLat.text!.isEmpty || EndLong.text!.isEmpty || NumberFormatter().number(from: StartLat.text!) == nil || NumberFormatter().number(from: StartLong.text!) == nil || NumberFormatter().number(from: EndLat.text!) == nil || NumberFormatter().number(from: EndLong.text!) == nil {
             
             let alertController = UIAlertController(title: "ChargingStations", message:
                 "Please Enter Valid Coordinates", preferredStyle: UIAlertControllerStyle.alert)
