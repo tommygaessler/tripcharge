@@ -14,6 +14,11 @@ import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
     
+    // MARK: Find Closest Stations Inputs
+    
+    @IBOutlet weak var CurrentLat: UITextField!
+    @IBOutlet weak var CurrentLong: UITextField!
+    
     // MARK: Find Stations Along Route Inputs
     
     @IBOutlet weak var StartLat: UITextField!
@@ -37,21 +42,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     
     @IBAction func FindClosestStations(_ sender: UIButton) {
         
+        let currentLatInput = Double(CurrentLat.text!)
+        let currentLongInput = Double(CurrentLong.text!)
+        
+        
         // MARK: Get Screen Size
         let screenSize: CGRect = UIScreen.main.bounds
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
         
         // MARK: Google Maps
-        let camera = GMSCameraPosition.camera(withLatitude: 37.7749, longitude: -122.4194, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 60, width: screenWidth, height: screenHeight - 60), camera: camera)
+        let camera = GMSCameraPosition.camera(withLatitude: currentLatInput!, longitude: currentLongInput!, zoom: 6.0)
+        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight - 100), camera: camera)
         self.view.addSubview(mapView)
         
         //MARK: Send Location to Austins API
-        Alamofire.request("https://guarded-garden-39811.herokuapp.com/lat/37.7749/long/-122.4194").responseJSON { response in
+        Alamofire.request("https://guarded-garden-39811.herokuapp.com/lat/\(currentLatInput! as Double)/long/\(currentLongInput! as Double)").responseJSON { response in
             
             //MARK: Set current location pin
-            let position3 = CLLocationCoordinate2DMake(37.7749, -122.4194)
+            let position3 = CLLocationCoordinate2DMake(currentLatInput!, currentLongInput!)
             let marker3 = GMSMarker(position: position3)
             marker3.title = "Current Location"
             marker3.icon = GMSMarker.markerImage(with: UIColor.green)
