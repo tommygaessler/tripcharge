@@ -42,44 +42,64 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     
     @IBAction func FindClosestStations(_ sender: UIButton) {
         
-        let currentLatInput = Double(CurrentLat.text!)
-        let currentLongInput = Double(CurrentLong.text!)
         
+        // MARK: Action: Check if input is empty or invalid
         
-        // MARK: Get Screen Size
-        let screenSize: CGRect = UIScreen.main.bounds
-        let screenWidth = screenSize.width
-        let screenHeight = screenSize.height
-        
-        // MARK: Google Maps
-        let camera = GMSCameraPosition.camera(withLatitude: currentLatInput!, longitude: currentLongInput!, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight - 100), camera: camera)
-        self.view.addSubview(mapView)
-        
-        //MARK: Send Location to Austins API
-        Alamofire.request("https://guarded-garden-39811.herokuapp.com/lat/\(currentLatInput! as Double)/long/\(currentLongInput! as Double)").responseJSON { response in
+        if CurrentLat.text!.isEmpty || CurrentLong.text!.isEmpty {
+            let alertController = UIAlertController(title: "ChargingStations", message:
+                "Please Enter Valid Coordinates", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+        } else {
+            
+            let currentLatInput = Double(CurrentLat.text!)
+            let currentLongInput = Double(CurrentLong.text!)
+            
+            // MARK: Get Screen Size
+            let screenSize: CGRect = UIScreen.main.bounds
+            let screenWidth = screenSize.width
+            let screenHeight = screenSize.height
+            
+            // MARK: Google Maps
+            let camera = GMSCameraPosition.camera(withLatitude: currentLatInput!, longitude: currentLongInput!, zoom: 6.0)
+            let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight - 100), camera: camera)
+            self.view.addSubview(mapView)
             
             //MARK: Set current location pin
             let position3 = CLLocationCoordinate2DMake(currentLatInput!, currentLongInput!)
             let marker3 = GMSMarker(position: position3)
-            marker3.title = "Current Location"
+            marker3.title = "Search Location"
             marker3.icon = GMSMarker.markerImage(with: UIColor.green)
             marker3.map = mapView
             
-            //MARK: Add pins for each charging station location
-            if let addresses = response.result.value {
-                for address in addresses as! [AnyObject] {
+            //MARK: Send Location to Austins API
+            Alamofire.request("https://guarded-garden-39811.herokuapp.com/lat/\(currentLatInput! as Double)/long/\(currentLongInput! as Double)").responseJSON { response in
+                
+                if (response.result.value as! Array<Any>).isEmpty {
+                    let alertController = UIAlertController(title: "ChargingStations", message:
+                        "No Stations Found", preferredStyle: UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
                     
-                    let info = address["AddressInfo"] as! [String : AnyObject]
+                    self.present(alertController, animated: true, completion: nil)
+                } else {
                     
-                    let addressLine1 = info["AddressLine1"] as! String
-                    let lat = info["Latitude"] as! Double
-                    let long = info["Longitude"] as! Double
-                    
-                    let position = CLLocationCoordinate2DMake(lat, long)
-                    let marker = GMSMarker(position: position)
-                    marker.title = addressLine1
-                    marker.map = mapView
+                    //MARK: Add pins for each charging station location
+                    if let addresses = response.result.value {
+                        for address in addresses as! [AnyObject] {
+                            
+                            let info = address["AddressInfo"] as! [String : AnyObject]
+                            
+                            let addressLine1 = info["AddressLine1"] as! String
+                            let lat = info["Latitude"] as! Double
+                            let long = info["Longitude"] as! Double
+                            
+                            let position = CLLocationCoordinate2DMake(lat, long)
+                            let marker = GMSMarker(position: position)
+                            marker.title = addressLine1
+                            marker.map = mapView
+                        }
+                    }
                 }
             }
         }
@@ -140,3 +160,5 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         }
     }
 }
+
+
