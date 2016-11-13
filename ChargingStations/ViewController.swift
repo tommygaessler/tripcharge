@@ -10,8 +10,16 @@ import UIKit
 import GoogleMaps
 import SwiftyJSON
 import Alamofire
+import CoreLocation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
+    
+    // MARK: Find Stations Along Route Inputs
+    
+    @IBOutlet weak var StartLat: UITextField!
+    @IBOutlet weak var StartLong: UITextField!
+    @IBOutlet weak var EndLat: UITextField!
+    @IBOutlet weak var EndLong: UITextField!
     
     // MARK: Properties
 
@@ -55,12 +63,13 @@ class ViewController: UIViewController {
                     
                     let info = address["AddressInfo"] as! [String : AnyObject]
                     
+                    let addressLine1 = info["AddressLine1"] as! String
                     let lat = info["Latitude"] as! Double
                     let long = info["Longitude"] as! Double
                     
                     let position = CLLocationCoordinate2DMake(lat, long)
                     let marker = GMSMarker(position: position)
-                    marker.title = "Hello World"
+                    marker.title = addressLine1
                     marker.map = mapView
                 }
             }
@@ -71,27 +80,32 @@ class ViewController: UIViewController {
     
     @IBAction func FindStationsAlongRoute(_ sender: UIButton) {
         
+        let startLatInput = Double(StartLat.text!)
+        let startLongInput = Double(StartLong.text!)
+        let endLatInput = Double(EndLat.text!)
+        let endLongInput = Double(EndLong.text!)
+        
         let screenSize: CGRect = UIScreen.main.bounds
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
         
         // MARK: Google Maps
-        let camera = GMSCameraPosition.camera(withLatitude: 39.733501, longitude: -104.992597, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 60, width: screenWidth, height: screenHeight-60), camera: camera)
+        let camera = GMSCameraPosition.camera(withLatitude: startLatInput!, longitude: startLongInput!, zoom: 6.0)
+        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight-100), camera: camera)
         self.view.addSubview(mapView)
         
         //MARK: Send Location to Austins API
-        Alamofire.request("https://guarded-garden-39811.herokuapp.com/start/lat/39.733501/long/-104.992597/end/lat/39.916591/long/-104.930168").responseJSON { response in
+        Alamofire.request("https://guarded-garden-39811.herokuapp.com/start/lat/\(startLatInput! as Double)/long/\(startLongInput! as Double)/end/lat/\(endLatInput! as Double)/long/\(endLongInput! as Double)").responseJSON { response in
             
             //MARK: Set starting pin
-            let position1 = CLLocationCoordinate2DMake(39.733501, -104.992597)
+            let position1 = CLLocationCoordinate2DMake(startLatInput!, startLongInput!)
             let marker1 = GMSMarker(position: position1)
             marker1.title = "Starting Location"
             marker1.icon = GMSMarker.markerImage(with: UIColor.green)
             marker1.map = mapView
             
             //MARK: Set destination pin
-            let position2 = CLLocationCoordinate2DMake(39.916591, -104.930168)
+            let position2 = CLLocationCoordinate2DMake(endLatInput!, endLongInput!)
             let marker2 = GMSMarker(position: position2)
             marker2.title = "Destination"
             marker2.icon = GMSMarker.markerImage(with: UIColor.blue)
@@ -103,12 +117,14 @@ class ViewController: UIViewController {
                     
                     let info = address["AddressInfo"] as! [String : AnyObject]
                     
+                    let addressLine1 = info["AddressLine1"] as! String
+                    
                     let lat = info["Latitude"] as! Double
                     let long = info["Longitude"] as! Double
                     
                     let position = CLLocationCoordinate2DMake(lat, long)
                     let marker = GMSMarker(position: position)
-                    marker.title = "Hello World"
+                    marker.title = addressLine1
                     marker.map = mapView
                 }
             }
