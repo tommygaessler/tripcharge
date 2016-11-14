@@ -25,7 +25,7 @@ import SwiftyJSON
 import Alamofire
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate, GMSMapViewDelegate {
     
     // MARK: Find Closest Stations Inputs
     
@@ -39,11 +39,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     @IBOutlet weak var EndLat: UITextField!
     @IBOutlet weak var EndLong: UITextField!
     
+    var locationManager: CLLocationManager!
+    
     // MARK: Properties
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,6 +63,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     // MARK: Action: FindClosestStations
     
     @IBAction func FindClosestStations(_ sender: UIButton) {
+        
+        // MARK: Hides keyboard on submit
+        self.view.endEditing(true)
         
         // MARK: Check if input is empty or invalid
         
@@ -110,6 +122,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
                             let position = CLLocationCoordinate2DMake(lat, long)
                             let marker = GMSMarker(position: position)
                             marker.title = addressLine1
+                            marker.snippet = "Take Me Here"
                             marker.map = mapView
                         }
                     }
@@ -121,6 +134,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     // MARK: Action: FindStationsAlongRoute
     
     @IBAction func FindStationsAlongRoute(_ sender: UIButton) {
+        
+        // MARK: Hides keyboard on submit
+        self.view.endEditing(true)
         
         // MARK: Check if input is empty or invalid
         
@@ -187,6 +203,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
                             let position = CLLocationCoordinate2DMake(lat, long)
                             let marker = GMSMarker(position: position)
                             marker.title = addressLine1
+                            marker.snippet = "Take Me Here"
                             marker.map = mapView
                         }
                     }
