@@ -42,7 +42,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     var locationManager: CLLocationManager!
     
     // MARK: Properties
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

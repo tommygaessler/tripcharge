@@ -485,6 +485,7 @@
 				DEVELOPMENT_TEAM = KWQZHFS39B;
 				INFOPLIST_FILE = ChargingStations/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ChargingStations;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
