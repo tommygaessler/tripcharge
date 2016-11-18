@@ -162,20 +162,6 @@
                                     <action selector="FindClosestStations:" destination="L6F-sK-xkh" eventType="touchUpInside" id="Adw-P0-jGO"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lat" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0sb-yG-bpZ">
-                                <rect key="frame" x="16" y="58" width="140" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Long" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c9t-nx-FUJ">
-                                <rect key="frame" x="219" y="58" width="140" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Nearest" translatesAutoresizingMaskIntoConstraints="NO" id="duy-lS-uGM">
                                 <rect key="frame" x="122" y="285" width="131" height="131"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -183,10 +169,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <outlet property="CurrentLat" destination="0sb-yG-bpZ" id="5ym-Fd-bZv"/>
-                        <outlet property="CurrentLong" destination="c9t-nx-FUJ" id="x49-l0-1Dx"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D5f-Fe-eRd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -198,6 +180,6 @@
         <image name="Nearest" width="338" height="419"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="E7M-2i-HJV"/>
+        <segue reference="kuJ-0N-bHf"/>
     </inferredMetricsTieBreakers>
 </document>
