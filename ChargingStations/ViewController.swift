@@ -55,6 +55,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         }
     }
     
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        
+        let linkLocation: String = marker.title!.replacingOccurrences(of: " ", with: "+")
+        
+        print(linkLocation)
+        print(latitude)
+        print(Longitude)
+        
+        if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
+            UIApplication.shared.openURL(NSURL(string:
+                "comgooglemaps://?saddr=&daddr=\(linkLocation)&directionsmode=driving")! as URL)
+            
+        } else {
+            NSLog("Can't use comgooglemaps://");
+        }
+    }
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         let alertController = UIAlertController(title: "ChargingStations", message:
             "In order to find closest stations, go to settings and enable location services :)", preferredStyle: UIAlertControllerStyle.alert)
@@ -90,10 +107,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         //MARK: Set current location pin
         let position3 = CLLocationCoordinate2DMake(latitude, Longitude)
         let marker3 = GMSMarker(position: position3)
-        marker3.title = "Search Location"
+        marker3.title = "Current Location"
         marker3.icon = GMSMarker.markerImage(with: UIColor.green)
         marker3.map = mapView
-            
+        
+        mapView.delegate = self
+        
         //MARK: Send Location to Austins API
         Alamofire.request("https://guarded-garden-39811.herokuapp.com/lat/\(latitude)/long/\(Longitude)").responseJSON { response in
                 
@@ -101,7 +120,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
                 let alertController = UIAlertController(title: "ChargingStations", message:
                         "No Stations Found", preferredStyle: UIAlertControllerStyle.alert)
                 alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-                    
+                
                 self.present(alertController, animated: true, completion: nil)
             } else {
                     
