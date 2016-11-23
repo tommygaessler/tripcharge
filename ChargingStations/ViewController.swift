@@ -48,6 +48,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         locationManager.startUpdatingLocation()
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    
+    
+    
+    //Mark: Helper Functions
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location11 = locations.first {
             latitude = location11.coordinate.latitude
@@ -84,11 +95,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
+    
+    
+    
 
     // MARK: Action: FindClosestStations
     
