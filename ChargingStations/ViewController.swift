@@ -112,7 +112,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         let screenHeight = screenSize.height
             
         // MARK: Google Maps
-        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: Longitude, zoom: 6.0)
+        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: Longitude, zoom: 10.0)
         let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 60, width: screenWidth, height: screenHeight - 60), camera: camera)
         self.view.addSubview(mapView)
             
@@ -215,7 +215,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
                         let endLng = addresses[addresses.count-1]["startingEndCords"]["endLng"].double
                         
                         // MARK: Google Maps
-                        let camera = GMSCameraPosition.camera(withLatitude: startLat!, longitude: startLng!, zoom: 6.0)
+                        let camera = GMSCameraPosition.camera(withLatitude: startLat!, longitude: startLng!, zoom: 10.0)
                         let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight-100), camera: camera)
                         self.view.addSubview(mapView)
                         
