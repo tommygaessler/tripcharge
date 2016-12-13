@@ -75,11 +75,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         print(Longitude)
         
         if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
-//            UIApplication.shared.openURL(NSURL(string:
-//                "comgooglemaps://?saddr=&daddr=\(linkLocation)&directionsmode=driving")! as URL)
-//            let options = [UIApplicationOpenURLOptionUniversalLinksOnly : true]
-//            UIApplication.shared.open("comgooglemaps://?saddr=&daddr=\(linkLocation)&directionsmode=driving", options: options, completionHandler: nil)
-            
+            UIApplication.shared.open(NSURL(string:"comgooglemaps://?saddr=&daddr=\(linkLocation)&directionsmode=driving")! as URL)
         } else {
             NSLog("Can't use comgooglemaps://");
         }
@@ -232,6 +228,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
                         marker2.title = "Destination"
                         marker2.icon = GMSMarker.markerImage(with: UIColor.blue)
                         marker2.map = mapView
+                        
+                        mapView.delegate = self
                         
                         for index in 0...addresses.count-2 {
                             
