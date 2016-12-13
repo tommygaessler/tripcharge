@@ -6,7 +6,7 @@
 //  Copyright © 2016 Tommy Gaessler. All rights reserved.
 //
 // Goals:
-// 3. Use current location as option for starting point
+// 3. Use starting location as an address/place
 //
 // Stretch:
 // 4. Add ability to send put post and delete requests to open charge api if charging info needs to be updated
@@ -25,7 +25,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     
     // MARK: Find Stations Along Route Inputs
     
-    @IBOutlet weak var StartAddress: UITextField!
     @IBOutlet weak var EndAddress: UITextField!
     
     let locationManager = CLLocationManager()
@@ -52,10 +51,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    
-    
     
     //Mark: Helper Functions
     
@@ -162,7 +157,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         
         // MARK: Check if input is empty or invalid
         
-        if StartAddress.text!.isEmpty || EndAddress.text!.isEmpty {
+        if EndAddress.text!.isEmpty {
             
             let alertController = UIAlertController(title: "ChargingStations", message:
                 "Please Enter All Fields", preferredStyle: UIAlertControllerStyle.alert)
@@ -172,7 +167,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
             
         } else {
             
-            let StartAddress: String = self.StartAddress.text!.replacingOccurrences(of: " ", with: "%20")
             let EndAddress: String = self.EndAddress.text!.replacingOccurrences(of: " ", with: "%20")
             
             let screenSize: CGRect = UIScreen.main.bounds
@@ -180,8 +174,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
             let screenHeight = screenSize.height
             
             // MARK: Send Location to Austins API
-            Alamofire.request("https://guarded-garden-39811.herokuapp.com/start/address/\(StartAddress)/end/address/\(EndAddress)").responseJSON { response in
-                
+            Alamofire.request("https://guarded-garden-39811.herokuapp.com/start/lat/\(latitude)/long/\(Longitude)/end/address/\(EndAddress)").responseJSON { response in
+
                 guard response.result.error == nil else {
                     // got an error in getting the data, need to handle it
                     let alertController = UIAlertController(title: "ChargingStations", message:
