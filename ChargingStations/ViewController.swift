@@ -7,13 +7,13 @@
 //
 // Goals:
 // 3. Use current location as option for starting point
-// 4. When you click on a pin there will be a link to route to it and open google maps
 //
 // Stretch:
 // 4. Add ability to send put post and delete requests to open charge api if charging info needs to be updated
 // 5. See how many charging spots are currently availble when you click on pin
 // 6. See how many total charging spots there are
 // 7. Check if the price is free, if not list the price
+// 8. Use google maps auto fill api for route inputs
 
 import UIKit
 import GoogleMaps
@@ -69,10 +69,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
         let linkLocation: String = marker.title!.replacingOccurrences(of: " ", with: "+")
-        
-        print(linkLocation)
-        print(latitude)
-        print(Longitude)
+
         
         if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
             UIApplication.shared.open(NSURL(string:"comgooglemaps://?saddr=&daddr=\(linkLocation)&directionsmode=driving")! as URL)
