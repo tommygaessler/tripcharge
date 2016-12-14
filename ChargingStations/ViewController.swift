@@ -23,7 +23,7 @@ import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate, GMSMapViewDelegate {
     
-    // MARK: Find Stations Along Route Inputs
+    // MARK: Find Stations Along Route Input
     
     @IBOutlet weak var EndAddress: UITextField!
     
@@ -86,66 +86,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-    
-    
-    
-    
-
-    // MARK: Action: FindClosestStations
-    
-    @IBAction func FindClosestStations(_ sender: UIButton) {
-        
-        // MARK: Get Screen Size
-        let screenSize: CGRect = UIScreen.main.bounds
-        let screenWidth = screenSize.width
-        let screenHeight = screenSize.height
-            
-        // MARK: Google Maps
-        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: Longitude, zoom: 10.0)
-        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 60, width: screenWidth, height: screenHeight - 60), camera: camera)
-        self.view.addSubview(mapView)
-            
-        //MARK: Set current location pin
-        let position3 = CLLocationCoordinate2DMake(latitude, Longitude)
-        let marker3 = GMSMarker(position: position3)
-        marker3.title = "Current Location"
-        marker3.icon = GMSMarker.markerImage(with: UIColor.green)
-        marker3.map = mapView
-        
-        mapView.delegate = self
-        
-        //MARK: Send Location to Austins API
-        Alamofire.request("https://guarded-garden-39811.herokuapp.com/lat/\(latitude)/long/\(Longitude)").responseJSON { response in
-                
-            if (response.result.value as! Array<Any>).isEmpty {
-                let alertController = UIAlertController(title: "ChargingStations", message:
-                        "No Stations Found", preferredStyle: UIAlertControllerStyle.alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-                
-                self.present(alertController, animated: true, completion: nil)
-            } else {
-                    
-                //MARK: Add pins for each charging station location
-                if let addresses = response.result.value {
-                    for address in addresses as! [AnyObject] {
-                            
-                        let info = address["AddressInfo"] as! [String : AnyObject]
-                            
-                        let addressLine1 = info["AddressLine1"] as! String
-                        let lat = info["Latitude"] as! Double
-                        let long = info["Longitude"] as! Double
-                            
-                        let position = CLLocationCoordinate2DMake(lat, long)
-                        let marker = GMSMarker(position: position)
-                        marker.title = addressLine1
-                        marker.snippet = "Take Me Here"
-                        marker.map = mapView
-                    }
-                }
-            }
-        }
-    }
-    
     
     
     // MARK: Action: FindStationsAlongRoute

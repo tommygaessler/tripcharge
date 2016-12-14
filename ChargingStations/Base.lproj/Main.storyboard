@@ -70,7 +70,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="L6F-sK-xkh" kind="show" id="1Ry-Ei-SXC"/>
+                                    <segue destination="L6F-sK-xkh" kind="show" id="nLE-oe-4KN"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -156,10 +156,10 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="912.5937031484259"/>
         </scene>
-        <!--View Controller-->
+        <!--View Controller2-->
         <scene sceneID="we2-rK-mtn">
             <objects>
-                <viewController id="L6F-sK-xkh" customClass="ViewController" customModule="ChargingStations" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="L6F-sK-xkh" customClass="ViewController2" customModule="ChargingStations" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="i1Q-WZ-zxp"/>
                         <viewControllerLayoutGuide type="bottom" id="7KU-6h-HRu"/>
@@ -172,31 +172,13 @@
                                 <rect key="frame" x="16" y="20" width="34" height="30"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="kuJ-0N-bHf"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="8De-eA-0jc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTb-Ub-XLe">
-                                <rect key="frame" x="329" y="20" width="30" height="30"/>
-                                <state key="normal" title="Go"/>
-                                <connections>
-                                    <action selector="FindClosestStations:" destination="L6F-sK-xkh" eventType="touchUpInside" id="Adw-P0-jGO"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Nearest" translatesAutoresizingMaskIntoConstraints="NO" id="duy-lS-uGM">
-                                <rect key="frame" x="122" y="285" width="131" height="131"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="131" id="HTz-lS-Da2"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="duy-lS-uGM" firstAttribute="centerX" secondItem="9kG-Zg-KPa" secondAttribute="centerX" id="7rl-Fd-4gF"/>
                             <constraint firstItem="v41-Eb-DnX" firstAttribute="leading" secondItem="9kG-Zg-KPa" secondAttribute="leadingMargin" id="Kq2-AM-cww"/>
-                            <constraint firstItem="duy-lS-uGM" firstAttribute="top" secondItem="i1Q-WZ-zxp" secondAttribute="bottom" constant="265" id="bfw-L8-lxY"/>
-                            <constraint firstItem="v41-Eb-DnX" firstAttribute="baseline" secondItem="dTb-Ub-XLe" secondAttribute="baseline" id="eUY-GJ-4Wi"/>
-                            <constraint firstItem="7KU-6h-HRu" firstAttribute="top" secondItem="duy-lS-uGM" secondAttribute="bottom" constant="251" id="hKS-gh-9GB"/>
-                            <constraint firstItem="dTb-Ub-XLe" firstAttribute="trailing" secondItem="9kG-Zg-KPa" secondAttribute="trailingMargin" id="j9e-Ho-ZXl"/>
                             <constraint firstItem="v41-Eb-DnX" firstAttribute="top" secondItem="i1Q-WZ-zxp" secondAttribute="bottom" id="tyU-V6-W3V"/>
                         </constraints>
                     </view>
@@ -208,9 +190,8 @@
     </scenes>
     <resources>
         <image name="Destination" width="328" height="976"/>
-        <image name="Nearest" width="338" height="419"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kuJ-0N-bHf"/>
+        <segue reference="8De-eA-0jc"/>
     </inferredMetricsTieBreakers>
 </document>
