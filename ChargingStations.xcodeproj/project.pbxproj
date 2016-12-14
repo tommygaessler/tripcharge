@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0763F4AA35CA49D2618F34D7 /* Pods_ChargingStationsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85D2246EE2E11B21922A9D92 /* Pods_ChargingStationsTests.framework */; };
 		260262D21E009359000EC67C /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260262D11E009359000EC67C /* ViewController2.swift */; };
+		260262D41E00C799000EC67C /* ViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260262D31E00C799000EC67C /* ViewController3.swift */; };
 		2627A3A81DD3B90700010959 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2627A3A71DD3B90700010959 /* AppDelegate.swift */; };
 		2627A3AA1DD3B90700010959 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2627A3A91DD3B90700010959 /* ViewController.swift */; };
 		2627A3AD1DD3B90700010959 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2627A3AB1DD3B90700010959 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		0B074A5236D8DCB040B9762F /* Pods-ChargingStationsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargingStationsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChargingStationsTests/Pods-ChargingStationsTests.release.xcconfig"; sourceTree = "<group>"; };
 		260262D11E009359000EC67C /* ViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
+		260262D31E00C799000EC67C /* ViewController3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController3.swift; sourceTree = "<group>"; };
 		2627A3A41DD3B90700010959 /* ChargingStations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChargingStations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2627A3A71DD3B90700010959 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2627A3A91DD3B90700010959 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			children = (
 				2627A3A71DD3B90700010959 /* AppDelegate.swift */,
 				2627A3A91DD3B90700010959 /* ViewController.swift */,
+				260262D31E00C799000EC67C /* ViewController3.swift */,
 				260262D11E009359000EC67C /* ViewController2.swift */,
 				2627A3AB1DD3B90700010959 /* Main.storyboard */,
 				2627A3AE1DD3B90700010959 /* Assets.xcassets */,
@@ -340,6 +343,7 @@
 			files = (
 				2627A3AA1DD3B90700010959 /* ViewController.swift in Sources */,
 				2627A3A81DD3B90700010959 /* AppDelegate.swift in Sources */,
+				260262D41E00C799000EC67C /* ViewController3.swift in Sources */,
 				260262D21E009359000EC67C /* ViewController2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

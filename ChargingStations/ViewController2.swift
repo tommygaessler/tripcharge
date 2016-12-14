@@ -61,9 +61,6 @@ class ViewController2: UIViewController, CLLocationManagerDelegate, UITextFieldD
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         
-        print(latitude)
-        print(Longitude)
-        
         // MARK: Get Screen Size
         let screenSize: CGRect = UIScreen.main.bounds
         let screenWidth = screenSize.width
