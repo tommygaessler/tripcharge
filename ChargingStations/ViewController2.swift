@@ -42,7 +42,6 @@ class ViewController2: UIViewController, CLLocationManagerDelegate, UITextFieldD
         if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
             UIApplication.shared.open(NSURL(string:"comgooglemaps://?saddr=&daddr=\(linkLocation)&directionsmode=driving")! as URL)
         } else {
-            NSLog("Can't use comgooglemaps://");
             UIApplication.shared.open(NSURL(string: "http://maps.apple.com/?address=\(linkLocation)")! as URL)
         }
     }
