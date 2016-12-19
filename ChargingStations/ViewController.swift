@@ -16,14 +16,42 @@
 // 8. Use google maps auto fill api for route inputs
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
+    
+    var locationManager = CLLocationManager()
+    
+    var latitude = 0.00
+    var Longitude = 0.00
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager.delegate = self
+        locationManager.requestLocation()
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location11 = locations.first {
+            latitude = location11.coordinate.latitude
+            Longitude = location11.coordinate.longitude
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        let alertController = UIAlertController(title: "ChargingStations", message:
+            "In order to find closest stations, go to settings and enable location services :)", preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

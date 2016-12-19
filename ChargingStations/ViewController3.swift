@@ -90,7 +90,7 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
         if EndAddress.text!.isEmpty {
             
             let alertController = UIAlertController(title: "ChargingStations", message:
-                "Please Enter All Fields", preferredStyle: UIAlertControllerStyle.alert)
+                "Please Enter A Destination", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
             
             self.present(alertController, animated: true, completion: nil)
@@ -103,13 +103,25 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
             let screenWidth = screenSize.width
             let screenHeight = screenSize.height
             
+            // MARK: Google Maps
+            let camera = GMSCameraPosition.camera(withLatitude: self.latitude, longitude: self.Longitude, zoom: 10.0)
+            let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight-100), camera: camera)
+            self.view.addSubview(mapView)
+            
+            //MARK: Set starting pin
+            let position1 = CLLocationCoordinate2DMake(self.latitude, self.Longitude)
+            let marker1 = GMSMarker(position: position1)
+            marker1.title = "Starting Location"
+            marker1.icon = GMSMarker.markerImage(with: UIColor.green)
+            marker1.map = mapView
+            
             // MARK: Send Location to Austins API
             Alamofire.request("https://guarded-garden-39811.herokuapp.com/start/lat/\(latitude)/long/\(Longitude)/end/address/\(EndAddress)").responseJSON { response in
                 
                 guard response.result.error == nil else {
                     // got an error in getting the data, need to handle it
                     let alertController = UIAlertController(title: "ChargingStations", message:
-                        "Invalid Locations", preferredStyle: UIAlertControllerStyle.alert)
+                        "Invalid Location", preferredStyle: UIAlertControllerStyle.alert)
                     alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
                     
                     self.present(alertController, animated: true, completion: nil)
@@ -127,22 +139,9 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
                         
                         self.present(alertController, animated: true, completion: nil)
                     } else {
-                        let startLat = addresses[addresses.count-1]["startingEndCords"]["startLat"].double
-                        let startLng = addresses[addresses.count-1]["startingEndCords"]["startLng"].double
+
                         let endLat = addresses[addresses.count-1]["startingEndCords"]["endLat"].double
                         let endLng = addresses[addresses.count-1]["startingEndCords"]["endLng"].double
-                        
-                        // MARK: Google Maps
-                        let camera = GMSCameraPosition.camera(withLatitude: startLat!, longitude: startLng!, zoom: 10.0)
-                        let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight-100), camera: camera)
-                        self.view.addSubview(mapView)
-                        
-                        //MARK: Set starting pin
-                        let position1 = CLLocationCoordinate2DMake(startLat!, startLng!)
-                        let marker1 = GMSMarker(position: position1)
-                        marker1.title = "Starting Location"
-                        marker1.icon = GMSMarker.markerImage(with: UIColor.green)
-                        marker1.map = mapView
                         
                         //MARK: Set destination pin
                         let position2 = CLLocationCoordinate2DMake(endLat!, endLng!)
