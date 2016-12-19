@@ -1,4 +1,4 @@
-# ChargingStations
+# [ChargingStations](https://itunes.apple.com/us/app/trip-charge-map-stations-along/id1186368321?ls=1&mt=8)
 iOS App that finds charging stations for electric cars!
 
 [Download on the AppStore!](https://itunes.apple.com/us/app/trip-charge-map-stations-along/id1186368321?ls=1&mt=8)
