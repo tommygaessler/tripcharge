@@ -9,6 +9,6 @@ iOS App that finds charging stations for electric cars!
 
 ![Map Stations Along a Route](http://a4.mzstatic.com/us/r30/Purple111/v4/11/b2/5a/11b25aeb-18a1-9c2f-5715-abd35b657b9a/screen696x696.jpeg)
 
-![Find the Closest Station to You](http://a4.mzstatic.com/us/r30/Purple111/v4/72/c9/bf/72c9bfd0-ff32-cadc-b6c5-9c2ce83ccb1f/screen696x696.jpeg)
+![Find the Closest Station to You](http://a4.mzstatic.com/us/r30/Purple111/v4/72/c9/bf/72c9bfd0-ff32-cadc-b6c5-9c2ce83ccb1f/screen696x696.jpeg =250x)
 
 Backend built with Go by [Austin Mahan](https://github.com/AustinMahan/q3Project)
