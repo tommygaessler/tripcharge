@@ -113,6 +113,4 @@ class ViewController2: UIViewController, CLLocationManagerDelegate, UITextFieldD
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    
 }
