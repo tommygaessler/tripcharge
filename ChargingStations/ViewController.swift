@@ -54,5 +54,3 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.present(alertController, animated: true, completion: nil)
     }
 }
-
-
