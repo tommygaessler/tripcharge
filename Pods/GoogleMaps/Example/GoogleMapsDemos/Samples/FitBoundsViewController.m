@@ -13,10 +13,6 @@
  * permissions and limitations under the License.
  */
 
-#if !defined(__has_feature) || !__has_feature(objc_arc)
-#error "This file requires ARC support."
-#endif
-
 #import "GoogleMapsDemos/Samples/FitBoundsViewController.h"
 
 #import <GoogleMaps/GoogleMaps.h>
@@ -66,7 +62,7 @@
 }
 
 - (void)didTapFitBounds {
-  if ([_markers count] == 0) return;
+  if (_markers.count == 0) return;
   CLLocationCoordinate2D firstPos = ((GMSMarker *)_markers.firstObject).position;
   GMSCoordinateBounds *bounds =
       [[GMSCoordinateBounds alloc] initWithCoordinate:firstPos coordinate:firstPos];

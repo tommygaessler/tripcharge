@@ -13,10 +13,6 @@
  * permissions and limitations under the License.
  */
 
-#if !defined(__has_feature) || !__has_feature(objc_arc)
-#error "This file requires ARC support."
-#endif
-
 #import "GoogleMapsDemos/Samples/GeocoderViewController.h"
 
 #import <GoogleMaps/GoogleMaps.h>
@@ -51,7 +47,7 @@
       GMSMarker *marker = [GMSMarker markerWithPosition:address.coordinate];
 
       marker.title = [[address lines] firstObject];
-      if ([[address lines] count] > 1) {
+      if ([address lines].count > 1) {
         marker.snippet = [[address lines] objectAtIndex:1];
       }
 

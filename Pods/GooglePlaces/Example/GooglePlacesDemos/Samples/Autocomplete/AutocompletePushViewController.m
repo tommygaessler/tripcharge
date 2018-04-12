@@ -13,15 +13,11 @@
  * permissions and limitations under the License.
  */
 
-#if !defined(__has_feature) || !__has_feature(objc_arc)
-#error "This file requires ARC support."
-#endif
-
 #import "GooglePlacesDemos/Samples/Autocomplete/AutocompletePushViewController.h"
 
 #import <GooglePlaces/GooglePlaces.h>
 
-@interface AutocompletePushViewController ()<GMSAutocompleteViewControllerDelegate>
+@interface AutocompletePushViewController () <GMSAutocompleteViewControllerDelegate>
 @property(nonatomic, strong) GMSAutocompleteViewController *autocompleteViewController;
 @end
 

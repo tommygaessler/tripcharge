@@ -13,10 +13,6 @@
  * permissions and limitations under the License.
  */
 
-#if !defined(__has_feature) || !__has_feature(objc_arc)
-#error "This file requires ARC support."
-#endif
-
 #import "GooglePlacesDemos/Samples/Autocomplete/AutocompleteBaseViewController.h"
 
 @implementation AutocompleteBaseViewController {
@@ -45,21 +41,23 @@
   button.translatesAutoresizingMaskIntoConstraints = NO;
   [self.view addSubview:button];
   // Position the button from the top of the view.
-  [self.view addConstraint:[NSLayoutConstraint constraintWithItem:button
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self.topLayoutGuide
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:8]];
+  [NSLayoutConstraint constraintWithItem:button
+                               attribute:NSLayoutAttributeTop
+                               relatedBy:NSLayoutRelationEqual
+                                  toItem:self.topLayoutGuide
+                               attribute:NSLayoutAttributeBottom
+                              multiplier:1
+                                constant:8]
+      .active = YES;
   // Centre it horizontally.
-  [self.view addConstraint:[NSLayoutConstraint constraintWithItem:button
-                                                        attribute:NSLayoutAttributeCenterX
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self.view
-                                                        attribute:NSLayoutAttributeCenterX
-                                                       multiplier:1
-                                                         constant:0]];
+  [NSLayoutConstraint constraintWithItem:button
+                               attribute:NSLayoutAttributeCenterX
+                               relatedBy:NSLayoutRelationEqual
+                                  toItem:self.view
+                               attribute:NSLayoutAttributeCenterX
+                              multiplier:1
+                                constant:0]
+      .active = YES;
 
   return button;
 }
@@ -67,13 +65,28 @@
 - (void)addResultViewBelow:(UIView *)view {
   NSAssert(_textView.superview == nil, @"%s should not be called twice", sel_getName(_cmd));
   [self.view addSubview:_textView];
-  // Position it horizontally so it fills the parent.
-  [self.view
-      addConstraints:[NSLayoutConstraint
-                         constraintsWithVisualFormat:@"H:|-(0)-[_textView]-(0)-|"
-                                             options:0
-                                             metrics:nil
-                                               views:NSDictionaryOfVariableBindings(_textView)]];
+
+  // Check to see if we can use readableContentGuide from iOS 9+
+  if ([self.view respondsToSelector:@selector(readableContentGuide)]) {
+    // Position it horizontally so it fills the readableContentGuide. Use the new anchor-based
+    // system because we know this code will only run on iOS 9+.
+    [self.view.readableContentGuide.leadingAnchor constraintEqualToAnchor:_textView.leadingAnchor]
+        .active = YES;
+    [self.view.readableContentGuide.trailingAnchor constraintEqualToAnchor:_textView.trailingAnchor]
+        .active = YES;
+    // Set the textContainerInset to 0 because the readableContentGuide is already handling the
+    // inset.
+    _textView.textContainerInset = UIEdgeInsetsZero;
+  } else {
+    // Position it horizontally so it fills the parent.
+    [self.view
+        addConstraints:[NSLayoutConstraint
+                           constraintsWithVisualFormat:@"H:|-(0)-[_textView]-(0)-|"
+                                               options:0
+                                               metrics:nil
+                                                 views:NSDictionaryOfVariableBindings(_textView)]];
+  }
+
   // If we have a view place it below that.
   if (view) {
     [self.view addConstraints:[NSLayoutConstraint

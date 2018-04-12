@@ -13,10 +13,6 @@
  * permissions and limitations under the License.
  */
 
-#if !defined(__has_feature) || !__has_feature(objc_arc)
-#error "This file requires ARC support."
-#endif
-
 #import "GooglePlacesDemos/Samples/Autocomplete/AutocompleteWithSearchDisplayController.h"
 
 #import <GooglePlaces/GooglePlaces.h>
@@ -24,8 +20,8 @@
 /* The default height of a UISearchBar. */
 static CGFloat kSearchBarHeight = 44.0f;
 
-@interface AutocompleteWithSearchDisplayController ()<GMSAutocompleteTableDataSourceDelegate,
-                                                      UISearchDisplayDelegate>
+@interface AutocompleteWithSearchDisplayController () <GMSAutocompleteTableDataSourceDelegate,
+                                                       UISearchDisplayDelegate>
 @end
 
 @implementation AutocompleteWithSearchDisplayController {

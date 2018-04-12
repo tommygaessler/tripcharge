@@ -101,6 +101,12 @@
       "idiom" : "ipad",
       "filename" : "icon 6-2.png",
       "scale" : "2x"
+    },
+    {
+      "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "logo.jpg",
+      "scale" : "1x"
     }
   ],
   "info" : {

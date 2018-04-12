@@ -13,16 +13,12 @@
  * permissions and limitations under the License.
  */
 
-#if !defined(__has_feature) || !__has_feature(objc_arc)
-#error "This file requires ARC support."
-#endif
-
 #import "GooglePlacesDemos/Samples/Autocomplete/AutocompleteWithTextFieldController.h"
 
 #import <GooglePlaces/GooglePlaces.h>
 
-@interface AutocompleteWithTextFieldController ()<UITextFieldDelegate,
-                                                  GMSAutocompleteTableDataSourceDelegate>
+@interface AutocompleteWithTextFieldController () <UITextFieldDelegate,
+                                                   GMSAutocompleteTableDataSourceDelegate>
 @end
 
 @implementation AutocompleteWithTextFieldController {
@@ -77,13 +73,14 @@
                                              options:0
                                              metrics:nil
                                                views:NSDictionaryOfVariableBindings(_searchField)]];
-  [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_searchField
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self.topLayoutGuide
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:8]];
+  [NSLayoutConstraint constraintWithItem:_searchField
+                               attribute:NSLayoutAttributeTop
+                               relatedBy:NSLayoutRelationEqual
+                                  toItem:self.topLayoutGuide
+                               attribute:NSLayoutAttributeBottom
+                              multiplier:1
+                                constant:8]
+      .active = YES;
 
   [self addResultViewBelow:_searchField];
 }

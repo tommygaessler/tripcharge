@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,82 +15,89 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ChargingStations" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfZ-5a-joa">
-                                <rect key="frame" x="52" y="326" width="270" height="50"/>
+                                <rect key="frame" x="52" y="279" width="270" height="50"/>
                                 <color key="backgroundColor" red="0.24705882352941178" green="0.65490196078431373" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="PKe-4s-CB3"/>
+                                    <constraint firstAttribute="height" constant="50" id="Q2A-R5-Y7Y"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 <state key="normal" title="Stations Along Route 🗺">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <segue destination="TIX-yT-4je" kind="show" id="B3R-Ya-lCE"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charge My EV 🚗" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fO-Wy-BQj">
-                                <rect key="frame" x="61" y="67" width="253" height="72"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="72" id="Vic-Wv-liJ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="33"/>
-                                <color key="textColor" red="0.93333333333333335" green="0.38823529411764707" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created with 💚 by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Va2-fo-14A">
                                 <rect key="frame" x="113" y="575" width="148" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tommy Gaessler &amp; Austin Mahan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1z-eo-JMF">
-                                <rect key="frame" x="62" y="604" width="252" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tommy Gaessler &amp; Austin Mahan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1z-eo-JMF">
+                                <rect key="frame" x="61" y="604" width="252" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7mm-sw-O2e">
-                                <rect key="frame" x="52" y="215" width="270" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="editButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7mm-sw-O2e">
+                                <rect key="frame" x="52" y="187" width="270" height="50"/>
                                 <color key="backgroundColor" red="0.34901960784313724" green="0.80392156862745101" blue="0.56470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="M5i-zV-1jf"/>
+                                    <constraint firstAttribute="height" constant="50" id="hSx-Oh-zpH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 <state key="normal" title="Closest Stations 🔌">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="disabled">
+                                    <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
+                                </state>
                                 <connections>
-                                    <segue destination="L6F-sK-xkh" kind="show" id="nLE-oe-4KN"/>
+                                    <segue destination="L6F-sK-xkh" kind="show" identifier="" id="nLE-oe-4KN"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip Charge 🚗" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fO-Wy-BQj">
+                                <rect key="frame" x="83" y="66" width="207" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="72" id="jem-Jn-WjI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                                <color key="textColor" red="0.93333333333333335" green="0.38823529411764707" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="7mm-sw-O2e" firstAttribute="centerX" secondItem="6fO-Wy-BQj" secondAttribute="centerX" id="01l-oA-CSB"/>
-                            <constraint firstItem="Va2-fo-14A" firstAttribute="centerX" secondItem="qfZ-5a-joa" secondAttribute="centerX" id="EeA-Nm-ER6"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="n1z-eo-JMF" secondAttribute="bottom" constant="42" id="FxW-44-MBs"/>
-                            <constraint firstItem="7mm-sw-O2e" firstAttribute="top" secondItem="6fO-Wy-BQj" secondAttribute="bottom" constant="76" id="OQh-TR-Bnn"/>
-                            <constraint firstItem="7mm-sw-O2e" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="36" id="RBy-Gi-mem"/>
-                            <constraint firstItem="7mm-sw-O2e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RYF-kw-rIE"/>
-                            <constraint firstItem="qfZ-5a-joa" firstAttribute="trailing" secondItem="7mm-sw-O2e" secondAttribute="trailing" id="Xll-FI-374"/>
-                            <constraint firstItem="qfZ-5a-joa" firstAttribute="leading" secondItem="7mm-sw-O2e" secondAttribute="leading" id="eCF-0k-8tw"/>
-                            <constraint firstItem="qfZ-5a-joa" firstAttribute="top" secondItem="7mm-sw-O2e" secondAttribute="bottom" constant="61" id="sWG-si-Ecp"/>
-                            <constraint firstItem="n1z-eo-JMF" firstAttribute="trailing" secondItem="6fO-Wy-BQj" secondAttribute="trailing" id="szv-Qv-0CU"/>
-                            <constraint firstItem="n1z-eo-JMF" firstAttribute="top" secondItem="Va2-fo-14A" secondAttribute="bottom" constant="8" symbolic="YES" id="ueg-So-tyb"/>
-                            <constraint firstItem="6fO-Wy-BQj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="47" id="xDY-x7-SGY"/>
+                            <constraint firstItem="7mm-sw-O2e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8Le-hL-QQw"/>
+                            <constraint firstItem="Upg-fS-8eh" firstAttribute="bottom" secondItem="n1z-eo-JMF" secondAttribute="bottom" constant="42" id="8ip-WB-0gl"/>
+                            <constraint firstItem="Va2-fo-14A" firstAttribute="centerX" secondItem="n1z-eo-JMF" secondAttribute="centerX" id="FZD-xj-hxS"/>
+                            <constraint firstItem="7mm-sw-O2e" firstAttribute="leading" secondItem="qfZ-5a-joa" secondAttribute="leading" id="Hmm-co-7GX"/>
+                            <constraint firstItem="qfZ-5a-joa" firstAttribute="top" secondItem="7mm-sw-O2e" secondAttribute="bottom" constant="42" id="NEG-6Q-yzq"/>
+                            <constraint firstItem="6fO-Wy-BQj" firstAttribute="centerX" secondItem="7mm-sw-O2e" secondAttribute="centerX" id="O9G-IJ-dxP"/>
+                            <constraint firstItem="qfZ-5a-joa" firstAttribute="centerX" secondItem="Va2-fo-14A" secondAttribute="centerX" id="SUr-x1-dnP"/>
+                            <constraint firstItem="7mm-sw-O2e" firstAttribute="trailing" secondItem="qfZ-5a-joa" secondAttribute="trailing" id="T1e-L6-8z1"/>
+                            <constraint firstItem="7mm-sw-O2e" firstAttribute="top" secondItem="6fO-Wy-BQj" secondAttribute="bottom" constant="49" id="mDM-1X-bbR"/>
+                            <constraint firstItem="6fO-Wy-BQj" firstAttribute="top" secondItem="Upg-fS-8eh" secondAttribute="top" constant="46" id="nPO-e9-F3i"/>
+                            <constraint firstItem="n1z-eo-JMF" firstAttribute="top" secondItem="Va2-fo-14A" secondAttribute="bottom" constant="8" symbolic="YES" id="sW1-cO-3vY"/>
+                            <constraint firstItem="7mm-sw-O2e" firstAttribute="leading" secondItem="Upg-fS-8eh" secondAttribute="leading" constant="52" id="xe1-01-qz0"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Upg-fS-8eh"/>
                     </view>
+                    <connections>
+                        <outlet property="ClosestStationsButton" destination="7mm-sw-O2e" id="8Hn-6M-ldK"/>
+                        <outlet property="StationsAlongRouteButton" destination="qfZ-5a-joa" id="eKk-gO-JGj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -99,10 +107,6 @@
         <scene sceneID="gYA-TX-wda">
             <objects>
                 <viewController id="TIX-yT-4je" customClass="ViewController3" customModule="ChargingStations" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="fWx-u5-Uwk"/>
-                        <viewControllerLayoutGuide type="bottom" id="7G8-28-JaU"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ExJ-Jk-Yc2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -144,12 +148,15 @@
                             <constraint firstItem="vyA-aD-ZgC" firstAttribute="centerX" secondItem="n9x-AY-bgX" secondAttribute="centerX" id="dej-Zh-wVC"/>
                             <constraint firstItem="SaQ-fJ-tvT" firstAttribute="baseline" secondItem="lRw-5P-Hdc" secondAttribute="baseline" id="g63-Xm-qBC"/>
                             <constraint firstItem="SaQ-fJ-tvT" firstAttribute="leading" secondItem="ExJ-Jk-Yc2" secondAttribute="leadingMargin" id="leP-0Y-KSJ"/>
-                            <constraint firstItem="SaQ-fJ-tvT" firstAttribute="top" secondItem="fWx-u5-Uwk" secondAttribute="bottom" id="nG1-Vz-oiH"/>
-                            <constraint firstItem="7G8-28-JaU" firstAttribute="top" secondItem="n9x-AY-bgX" secondAttribute="bottom" constant="143" id="qwY-7z-eBS"/>
+                            <constraint firstItem="SaQ-fJ-tvT" firstAttribute="top" secondItem="pFd-AP-7zK" secondAttribute="top" id="nG1-Vz-oiH"/>
+                            <constraint firstItem="pFd-AP-7zK" firstAttribute="bottom" secondItem="n9x-AY-bgX" secondAttribute="bottom" constant="143" id="qwY-7z-eBS"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="pFd-AP-7zK"/>
                     </view>
                     <connections>
+                        <outlet property="DestinationInput" destination="vyA-aD-ZgC" id="6U0-Rl-YLj"/>
                         <outlet property="EndAddress" destination="vyA-aD-ZgC" id="Bld-yT-c1o"/>
+                        <outlet property="GoButton" destination="lRw-5P-Hdc" id="NOf-it-Va4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L0F-MF-XR5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -159,11 +166,7 @@
         <!--View Controller2-->
         <scene sceneID="we2-rK-mtn">
             <objects>
-                <viewController id="L6F-sK-xkh" customClass="ViewController2" customModule="ChargingStations" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="i1Q-WZ-zxp"/>
-                        <viewControllerLayoutGuide type="bottom" id="7KU-6h-HRu"/>
-                    </layoutGuides>
+                <viewController storyboardIdentifier="ViewController2" id="L6F-sK-xkh" customClass="ViewController2" customModule="ChargingStations" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9kG-Zg-KPa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -179,8 +182,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="v41-Eb-DnX" firstAttribute="leading" secondItem="9kG-Zg-KPa" secondAttribute="leadingMargin" id="Kq2-AM-cww"/>
-                            <constraint firstItem="v41-Eb-DnX" firstAttribute="top" secondItem="i1Q-WZ-zxp" secondAttribute="bottom" id="tyU-V6-W3V"/>
+                            <constraint firstItem="v41-Eb-DnX" firstAttribute="top" secondItem="gNt-Hr-9go" secondAttribute="top" id="tyU-V6-W3V"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="gNt-Hr-9go"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D5f-Fe-eRd" userLabel="First Responder" sceneMemberID="firstResponder"/>

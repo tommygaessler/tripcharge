@@ -3,7 +3,7 @@
 //  ChargingStations
 //
 //  Created by Tommy Gaessler on 11/9/16.
-//  Copyright © 2016 Tommy Gaessler. All rights reserved.
+//  Copyright © 2017 Tommy Gaessler. All rights reserved.
 //
 // Goals:
 // 3. Use starting location as an address/place
@@ -25,6 +25,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var latitude = 0.00
     var Longitude = 0.00
     
+    @IBOutlet weak var StationsAlongRouteButton: UIButton!
+    @IBOutlet weak var ClosestStationsButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,6 +43,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        StationsAlongRouteButton.isEnabled = true;
+        ClosestStationsButton.isEnabled = true;
         if let location11 = locations.first {
             latitude = location11.coordinate.latitude
             Longitude = location11.coordinate.longitude
@@ -47,9 +52,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        let alertController = UIAlertController(title: "ChargingStations", message:
-            "In order to find closest stations, go to settings and enable location services :)", preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        StationsAlongRouteButton.isEnabled = false;
+        ClosestStationsButton.isEnabled = false;
+        let alertController = UIAlertController(title: "Trip Charge", message:
+            "Please allow location access to find charging stations.", preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Settings", style: .default) { (UIAlertAction) in
+            UIApplication.shared.open(URL(string:UIApplicationOpenSettingsURLString)!)
+        })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default,handler: nil))
+        
         
         self.present(alertController, animated: true, completion: nil)
     }

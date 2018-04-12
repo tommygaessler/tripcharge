@@ -13,10 +13,6 @@
  * permissions and limitations under the License.
  */
 
-#if !defined(__has_feature) || !__has_feature(objc_arc)
-#error "This file requires ARC support."
-#endif
-
 #import "GoogleMapsDemos/MasterViewController.h"
 
 #import <GoogleMaps/GoogleMaps.h>
@@ -81,7 +77,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   NSArray *demosInSection = [_demos objectAtIndex:section];
-  return [demosInSection count];
+  return demosInSection.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView

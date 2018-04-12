@@ -13,10 +13,6 @@
  * permissions and limitations under the License.
  */
 
-#if !defined(__has_feature) || !__has_feature(objc_arc)
-#error "This file requires ARC support."
-#endif
-
 #import "GoogleMapsDemos/Samples/MarkerInfoWindowViewController.h"
 
 #import <GoogleMaps/GoogleMaps.h>
@@ -104,7 +100,7 @@
                                                       message:message
                                                      delegate:nil
                                             cancelButtonTitle:nil
-                                            otherButtonTitles:nil, nil];
+                                            otherButtonTitles:nil];
   [alertView show];
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
     [alertView dismissWithClickedButtonIndex:0 animated:YES];

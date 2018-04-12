@@ -3,7 +3,7 @@
 //  ChargingStations
 //
 //  Created by Tommy Gaessler on 12/13/16.
-//  Copyright © 2016 Tommy Gaessler. All rights reserved.
+//  Copyright © 2017 Tommy Gaessler. All rights reserved.
 //
 
 import UIKit
@@ -19,6 +19,9 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
     @IBOutlet weak var EndAddress: UITextField!
     
     let locationManager = CLLocationManager()
+    
+    @IBOutlet weak var DestinationInput: UITextField!
+    @IBOutlet weak var GoButton: UIButton!
     
     var latitude = 0.00
     var Longitude = 0.00
@@ -46,6 +49,8 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
     //Mark: Helper Functions
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        DestinationInput.isEnabled = true
+        GoButton.isEnabled = true
         if let location11 = locations.first {
             latitude = location11.coordinate.latitude
             Longitude = location11.coordinate.longitude
@@ -54,32 +59,45 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
-        let linkLocation: String = marker.title!.replacingOccurrences(of: " ", with: "+")
-        
-        
-        if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
-            UIApplication.shared.open(NSURL(string:"comgooglemaps://?saddr=&daddr=\(linkLocation)&directionsmode=driving")! as URL)
-        } else {
-            UIApplication.shared.open(NSURL(string: "http://maps.apple.com/?address=\(linkLocation)")! as URL)
+        if(marker.title! != "Current Location") {
+            let linkLocation: String = marker.title!.replacingOccurrences(of: " ", with: "+")
+            
+            if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
+                UIApplication.shared.open(NSURL(string:"comgooglemaps://?saddr=&daddr=\(linkLocation)&directionsmode=driving")! as URL)
+            } else {
+                UIApplication.shared.open(NSURL(string: "http://maps.apple.com/?address=\(linkLocation)")! as URL)
+            }
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        let alertController = UIAlertController(title: "ChargingStations", message:
-            "In order to find closest stations, go to settings and enable location services :)", preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        DestinationInput.isEnabled = false
+        GoButton.isEnabled = false
+        let alertController = UIAlertController(title: "Trip Charge", message:
+            "Please allow location access to find charging stations.", preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Settings", style: .default) { (UIAlertAction) in
+            UIApplication.shared.open(URL(string:UIApplicationOpenSettingsURLString)!)
+        })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default,handler: nil))
         
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func dismissKeyboard() {
+    struct Connectivity {
+        static let sharedInstance = NetworkReachabilityManager()!
+        static var isConnectedToInternet:Bool {
+            return self.sharedInstance.isReachable
+        }
+    }
+    
+    @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
     
     
     // MARK: Action: FindStationsAlongRoute
-    
+    // check if connectivity add popup
     @IBAction func FindStationsAlongRoute(_ sender: UIButton) {
         
         // MARK: Hides keyboard on submit
@@ -89,7 +107,7 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
         
         if EndAddress.text!.isEmpty {
             
-            let alertController = UIAlertController(title: "ChargingStations", message:
+            let alertController = UIAlertController(title: "Trip Charge", message:
                 "Please Enter A Destination", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
             
@@ -97,75 +115,83 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
             
         } else {
             
-            let EndAddress: String = self.EndAddress.text!.replacingOccurrences(of: " ", with: "%20")
+            if Connectivity.isConnectedToInternet {
             
-            let screenSize: CGRect = UIScreen.main.bounds
-            let screenWidth = screenSize.width
-            let screenHeight = screenSize.height
-            
-            // MARK: Google Maps
-            let camera = GMSCameraPosition.camera(withLatitude: self.latitude, longitude: self.Longitude, zoom: 10.0)
-            let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight-100), camera: camera)
-            self.view.addSubview(mapView)
-            
-            //MARK: Set starting pin
-            let position1 = CLLocationCoordinate2DMake(self.latitude, self.Longitude)
-            let marker1 = GMSMarker(position: position1)
-            marker1.title = "Starting Location"
-            marker1.icon = GMSMarker.markerImage(with: UIColor.green)
-            marker1.map = mapView
-            
-            // MARK: Send Location to Austins API
-            Alamofire.request("https://guarded-garden-39811.herokuapp.com/start/lat/\(latitude)/long/\(Longitude)/end/address/\(EndAddress)").responseJSON { response in
+                let EndAddress: String = self.EndAddress.text!.replacingOccurrences(of: " ", with: "%20")
                 
-                guard response.result.error == nil else {
-                    // got an error in getting the data, need to handle it
-                    let alertController = UIAlertController(title: "ChargingStations", message:
-                        "Invalid Location", preferredStyle: UIAlertControllerStyle.alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-                    
-                    self.present(alertController, animated: true, completion: nil)
-                    return
-                }
+                let screenSize: CGRect = UIScreen.main.bounds
+                let screenWidth = screenSize.width
+                let screenHeight = screenSize.height
                 
-                if let data = response.result.value {
+                // MARK: Google Maps
+                let camera = GMSCameraPosition.camera(withLatitude: self.latitude, longitude: self.Longitude, zoom: 10.0)
+                let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.maxY + 80, width: screenWidth, height: screenHeight-UIApplication.shared.statusBarFrame.maxY + 80), camera: camera)
+                self.view.addSubview(mapView)
+                
+                //MARK: Set starting pin
+                let position1 = CLLocationCoordinate2DMake(self.latitude, self.Longitude)
+                let marker1 = GMSMarker(position: position1)
+                marker1.title = "Current Location"
+                marker1.icon = GMSMarker.markerImage(with: UIColor.green)
+                marker1.map = mapView
+                
+                // MARK: Send Location to Austins API
+                Alamofire.request("https://guarded-garden-39811.herokuapp.com/start/lat/\(latitude)/long/\(Longitude)/end/address/\(EndAddress)").responseJSON { response in
                     
-                    let addresses = JSON(data)
-                    
-                    if addresses.count == 0 {
-                        let alertController = UIAlertController(title: "ChargingStations", message:
-                            "No Stations Found", preferredStyle: UIAlertControllerStyle.alert)
+                    guard response.result.error == nil else {
+                        // got an error in getting the data, need to handle it
+                        let alertController = UIAlertController(title: "Trip Charge", message:
+                            "Invalid Location", preferredStyle: UIAlertControllerStyle.alert)
                         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
                         
                         self.present(alertController, animated: true, completion: nil)
-                    } else {
+                        return
+                    }
+                    
+                    if let data = response.result.value {
+                        
+                        let addresses = JSON(data)
+                        
+                        if addresses.count == 0 {
+                            let alertController = UIAlertController(title: "Trip Charge", message:
+                                "No Stations Found", preferredStyle: UIAlertControllerStyle.alert)
+                            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                            
+                            self.present(alertController, animated: true, completion: nil)
+                        } else {
 
-                        let endLat = addresses[addresses.count-1]["startingEndCords"]["endLat"].double
-                        let endLng = addresses[addresses.count-1]["startingEndCords"]["endLng"].double
-                        
-                        //MARK: Set destination pin
-                        let position2 = CLLocationCoordinate2DMake(endLat!, endLng!)
-                        let marker2 = GMSMarker(position: position2)
-                        marker2.title = "Destination"
-                        marker2.icon = GMSMarker.markerImage(with: UIColor.blue)
-                        marker2.map = mapView
-                        
-                        mapView.delegate = self
-                        
-                        for index in 0...addresses.count-2 {
+                            let endLat = addresses[addresses.count-1]["startingEndCords"]["endLat"].double
+                            let endLng = addresses[addresses.count-1]["startingEndCords"]["endLng"].double
                             
-                            let lat = addresses[index]["AddressInfo"]["Latitude"].double
-                            let lng = addresses[index]["AddressInfo"]["Longitude"].double
-                            let address = addresses[index]["AddressInfo"]["AddressLine1"].string
+                            //MARK: Set destination pin
+                            let position2 = CLLocationCoordinate2DMake(endLat!, endLng!)
+                            let marker2 = GMSMarker(position: position2)
+                            marker2.title = "Destination"
+                            marker2.icon = GMSMarker.markerImage(with: UIColor.blue)
+                            marker2.map = mapView
                             
-                            let position = CLLocationCoordinate2DMake(lat!, lng!)
-                            let marker = GMSMarker(position: position)
-                            marker.title = address
-                            marker.snippet = "Take Me Here"
-                            marker.map = mapView
+                            mapView.delegate = self
+                            
+                            for index in 0...addresses.count-2 {
+                                
+                                let lat = addresses[index]["AddressInfo"]["Latitude"].double
+                                let lng = addresses[index]["AddressInfo"]["Longitude"].double
+                                let address = addresses[index]["AddressInfo"]["AddressLine1"].string
+                                
+                                let position = CLLocationCoordinate2DMake(lat!, lng!)
+                                let marker = GMSMarker(position: position)
+                                marker.title = address
+                                marker.snippet = "Take Me Here"
+                                marker.map = mapView
+                            }
                         }
                     }
                 }
+            } else {
+                let alertController = UIAlertController(title: "No Internet Connection", message: "Make sure your airplane mode is off and that you have service/wifi. Then try again.", preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                
+                DispatchQueue.main.async { self.present(alertController, animated: true, completion: nil) }
             }
         }
     }
