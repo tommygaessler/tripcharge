@@ -59,7 +59,7 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
-        if(marker.title! != "Current Location") {
+        if(marker.title! != "Current Location" && marker.title! != "Destination") {
             let linkLocation: String = marker.title!.replacingOccurrences(of: " ", with: "+")
             
             if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
@@ -96,12 +96,13 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
     }
     
     
+    @IBAction func GoPressed(_ sender: Any) {
+        FindStationsAlongRoute(nil)
+    }
+    
+    
     // MARK: Action: FindStationsAlongRoute
-    // check if connectivity add popup
-    @IBAction func FindStationsAlongRoute(_ sender: UIButton) {
-        
-        // MARK: Hides keyboard on submit
-        self.view.endEditing(true)
+    @IBAction func FindStationsAlongRoute(_ sender: UIButton?) {
         
         // MARK: Check if input is empty or invalid
         
@@ -114,6 +115,8 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
             self.present(alertController, animated: true, completion: nil)
             
         } else {
+            
+             self.view.endEditing(true)
             
             if Connectivity.isConnectedToInternet {
             
@@ -140,8 +143,8 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
                     
                     guard response.result.error == nil else {
                         // got an error in getting the data, need to handle it
-                        let alertController = UIAlertController(title: "Trip Charge", message:
-                            "Invalid Location", preferredStyle: UIAlertControllerStyle.alert)
+                        let alertController = UIAlertController(title: "Invalid Location", message:
+                            "Please try something more specific.", preferredStyle: UIAlertControllerStyle.alert)
                         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
                         
                         self.present(alertController, animated: true, completion: nil)
@@ -153,8 +156,8 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
                         let addresses = JSON(data)
                         
                         if addresses.count == 0 {
-                            let alertController = UIAlertController(title: "Trip Charge", message:
-                                "No Stations Found", preferredStyle: UIAlertControllerStyle.alert)
+                            let alertController = UIAlertController(title: "Invalid Location", message:
+                                "Please try something more specific.", preferredStyle: UIAlertControllerStyle.alert)
                             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
                             
                             self.present(alertController, animated: true, completion: nil)
