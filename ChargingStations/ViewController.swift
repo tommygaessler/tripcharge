@@ -55,11 +55,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         StationsAlongRouteButton.isEnabled = false;
         ClosestStationsButton.isEnabled = false;
         let alertController = UIAlertController(title: "Trip Charge", message:
-            "Please allow location access to find charging stations.", preferredStyle: UIAlertControllerStyle.alert)
+            "Please allow location access to find charging stations.", preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: "Settings", style: .default) { (UIAlertAction) in
-            UIApplication.shared.open(URL(string:UIApplicationOpenSettingsURLString)!)
+            UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
         })
-        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default,handler: nil))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default,handler: nil))
         
         
         self.present(alertController, animated: true, completion: nil)

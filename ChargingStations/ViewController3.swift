@@ -60,7 +60,7 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
         if(marker.title! != "Current Location" && marker.title! != "Destination") {
-            let linkLocation: String = marker.title!.replacingOccurrences(of: " ", with: "+")
+            let linkLocation: String = (marker.userData! as AnyObject).replacingOccurrences(of: " ", with: "+")
             
             if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
                 UIApplication.shared.open(NSURL(string:"comgooglemaps://?saddr=&daddr=\(linkLocation)&directionsmode=driving")! as URL)
@@ -74,11 +74,11 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
         DestinationInput.isEnabled = false
         GoButton.isEnabled = false
         let alertController = UIAlertController(title: "Trip Charge", message:
-            "Please allow location access to find charging stations.", preferredStyle: UIAlertControllerStyle.alert)
+            "Please allow location access to find charging stations.", preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: "Settings", style: .default) { (UIAlertAction) in
-            UIApplication.shared.open(URL(string:UIApplicationOpenSettingsURLString)!)
+            UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
         })
-        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default,handler: nil))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default,handler: nil))
         
         self.present(alertController, animated: true, completion: nil)
     }
@@ -109,8 +109,8 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
         if EndAddress.text!.isEmpty {
             
             let alertController = UIAlertController(title: "Trip Charge", message:
-                "Please Enter A Destination", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                "Please Enter A Destination", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
             
             self.present(alertController, animated: true, completion: nil)
             
@@ -139,13 +139,13 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
                 marker1.map = mapView
                 
                 // MARK: Send Location to Austins API
-                Alamofire.request("https://guarded-garden-39811.herokuapp.com/start/lat/\(latitude)/long/\(Longitude)/end/address/\(EndAddress)").responseJSON { response in
+                Alamofire.request("https://tripcharge.herokuapp.com/start/lat/\(latitude)/long/\(Longitude)/end/address/\(EndAddress)").responseJSON { response in
                     
                     guard response.result.error == nil else {
                         // got an error in getting the data, need to handle it
                         let alertController = UIAlertController(title: "Invalid Location", message:
-                            "Please try something more specific.", preferredStyle: UIAlertControllerStyle.alert)
-                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                            "Please try something more specific.", preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                         
                         self.present(alertController, animated: true, completion: nil)
                         return
@@ -153,18 +153,18 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
                     
                     if let data = response.result.value {
                         
-                        let addresses = JSON(data)
+                        let chargers = JSON(data)
                         
-                        if addresses.count == 0 {
+                        if chargers.count == 0 {
                             let alertController = UIAlertController(title: "Invalid Location", message:
-                                "Please try something more specific.", preferredStyle: UIAlertControllerStyle.alert)
-                            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                                "Please try something more specific.", preferredStyle: UIAlertController.Style.alert)
+                            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                             
                             self.present(alertController, animated: true, completion: nil)
                         } else {
 
-                            let endLat = addresses[addresses.count-1]["startingEndCords"]["endLat"].double
-                            let endLng = addresses[addresses.count-1]["startingEndCords"]["endLng"].double
+                            let endLat = chargers[chargers.count-1]["startingEndCords"]["endLat"].double
+                            let endLng = chargers[chargers.count-1]["startingEndCords"]["endLng"].double
                             
                             //MARK: Set destination pin
                             let position2 = CLLocationCoordinate2DMake(endLat!, endLng!)
@@ -175,24 +175,25 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
                             
                             mapView.delegate = self
                             
-                            for index in 0...addresses.count-2 {
-                                
-                                let lat = addresses[index]["AddressInfo"]["Latitude"].double
-                                let lng = addresses[index]["AddressInfo"]["Longitude"].double
-                                let address = addresses[index]["AddressInfo"]["AddressLine1"].string
-                                
-                                let position = CLLocationCoordinate2DMake(lat!, lng!)
+                            for index in 0...chargers.count-2 {
+
+                                let lat = chargers[index]["AddressInfo"]["Latitude"].double
+                                let long = chargers[index]["AddressInfo"]["Longitude"].double
+
+                                let position = CLLocationCoordinate2DMake(lat!, long!)
                                 let marker = GMSMarker(position: position)
-                                marker.title = address
-                                marker.snippet = "Take Me Here"
+
+                                marker.title = chargers[index]["OperatorInfo"]["Title"].string
+                                marker.snippet = String(chargers[index]["Connections"][0]["Quantity"].int!) + " " + chargers[index]["Connections"][0]["ConnectionType"]["Title"].string! + "'s | " + chargers[index]["Connections"][0]["Level"]["Title"].string! + " | "  + chargers[index]["GeneralComments"].string!
+                                marker.userData = chargers[index]["AddressInfo"]["AddressLine1"].string! + " " + chargers[index]["AddressInfo"]["Town"].string! + chargers[index]["AddressInfo"]["StateOrProvince"].string!
                                 marker.map = mapView
                             }
                         }
                     }
                 }
             } else {
-                let alertController = UIAlertController(title: "No Internet Connection", message: "Make sure your airplane mode is off and that you have service/wifi. Then try again.", preferredStyle: UIAlertControllerStyle.alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                let alertController = UIAlertController(title: "No Internet Connection", message: "Make sure your airplane mode is off and that you have service/wifi. Then try again.", preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                 
                 DispatchQueue.main.async { self.present(alertController, animated: true, completion: nil) }
             }
