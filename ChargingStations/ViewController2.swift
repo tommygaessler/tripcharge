@@ -116,8 +116,13 @@ class ViewController2: UIViewController, CLLocationManagerDelegate, UITextFieldD
                             let marker = GMSMarker(position: position)
 
                             marker.title = charger["OperatorInfo"]["Title"].string
-                            marker.snippet = String(charger["Connections"][0]["Quantity"].int!) + " " + charger["Connections"][0]["ConnectionType"]["Title"].string! + "'s | " + charger["Connections"][0]["Level"]["Title"].string! + " | "  + charger["GeneralComments"].string!
-                            marker.userData = charger["AddressInfo"]["AddressLine1"].string! + " " + charger["AddressInfo"]["Town"].string! + charger["AddressInfo"]["StateOrProvince"].string!
+                            
+                            marker.snippet =
+                                (charger["Connections"].isEmpty ? "" : String(charger["Connections"][0]["Quantity"].int!)) + " " +
+                                (charger["Connections"].isEmpty ? "" : charger["Connections"][0]["ConnectionType"]["Title"].string!) + "'s | " +
+                                (charger["Connections"].isEmpty ? "" : charger["Connections"][0]["Level"]["Title"].string!)  + " | " +
+                                charger["GeneralComments"].string!
+                            marker.userData = charger["AddressInfo"]["AddressLine1"].string! + " " + charger["AddressInfo"]["Town"].string! + " " + charger["AddressInfo"]["StateOrProvince"].string!
                             marker.map = mapView
                         }
                     }
