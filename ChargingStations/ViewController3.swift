@@ -169,7 +169,7 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
                             //MARK: Set destination pin
                             let position2 = CLLocationCoordinate2DMake(endLat!, endLng!)
                             let marker2 = GMSMarker(position: position2)
-                            marker2.title = "Destination"
+                            marker2.title = self.EndAddress.text!
                             marker2.icon = GMSMarker.markerImage(with: UIColor.blue)
                             marker2.map = mapView
                             
