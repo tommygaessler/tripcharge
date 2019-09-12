@@ -59,7 +59,7 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
-        if(marker.title! != "Current Location" && marker.title! != "Destination") {
+        if(marker.title! != "Current Location" && marker.title! != self.EndAddress.text!) {
             let linkLocation: String = (marker.userData! as AnyObject).replacingOccurrences(of: " ", with: "+")
             
             if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
