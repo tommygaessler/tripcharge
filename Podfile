@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '12.0'
 use_frameworks!
 
 source 'https://github.com/CocoaPods/Specs.git'
@@ -10,7 +10,7 @@ target 'ChargingStations' do
   # Pods for ChargingStations
     pod 'GoogleMaps'
     pod 'GooglePlaces'
-    pod 'Alamofire', '~> 4.0'
+    pod 'Alamofire'
     pod 'SwiftyJSON'
 
   target 'ChargingStationsTests' do
