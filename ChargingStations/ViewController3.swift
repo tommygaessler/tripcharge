@@ -35,10 +35,9 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
         view.addGestureRecognizer(tap)
         
         locationManager.delegate = self
-        locationManager.requestLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
+        locationManager.requestLocation()
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,13 +47,50 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
     
     //Mark: Helper Functions
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse:
+            locationManager.requestLocation()
+        case .denied, .restricted:
+            // Handle the case where the user has denied access
+            print("Location services denied or restricted.")
+            disableLocationFeatures()
+        case .notDetermined:
+            // This case should be handled in viewDidLoad or similar
+            locationManager.requestWhenInUseAuthorization()
+        case .authorizedAlways:
+            print("always")
+        @unknown default:
+            // Handle any future cases
+            break
+        }
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        DestinationInput.isEnabled = true
-        GoButton.isEnabled = true
-        if let location11 = locations.first {
+        if let location11 = locations.last {
             latitude = location11.coordinate.latitude
             Longitude = location11.coordinate.longitude
+            
+            DestinationInput.isEnabled = true
+            GoButton.isEnabled = true
         }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error getting location: \(error.localizedDescription)")
+    }
+    
+    func disableLocationFeatures() {
+        DestinationInput.isEnabled = false
+        GoButton.isEnabled = false
+        let alertController = UIAlertController(title: "Trip Charge", message:
+            "Please allow location access to find charging stations.", preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "Settings", style: .default) { (UIAlertAction) in
+            UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+        })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default,handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
@@ -68,19 +104,6 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
                 UIApplication.shared.open(NSURL(string: "http://maps.apple.com/?address=\(linkLocation)")! as URL)
             }
         }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        DestinationInput.isEnabled = false
-        GoButton.isEnabled = false
-        let alertController = UIAlertController(title: "Trip Charge", message:
-            "Please allow location access to find charging stations.", preferredStyle: UIAlertController.Style.alert)
-        alertController.addAction(UIAlertAction(title: "Settings", style: .default) { (UIAlertAction) in
-            UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
-        })
-        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default,handler: nil))
-        
-        self.present(alertController, animated: true, completion: nil)
     }
     
     struct Connectivity {
@@ -127,8 +150,12 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
                 let screenHeight = screenSize.height
                 
                 // MARK: Google Maps
-                let camera = GMSCameraPosition.camera(withLatitude: self.latitude, longitude: self.Longitude, zoom: 10.0)
-                let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.maxY + 80, width: screenWidth, height: screenHeight-UIApplication.shared.statusBarFrame.maxY + 80), camera: camera)
+
+                let options = GMSMapViewOptions()
+                options.camera = GMSCameraPosition.camera(withLatitude: self.latitude, longitude: self.Longitude, zoom: 10.0)
+                options.frame =  CGRect(x: 0, y: (view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0) + 80, width: screenWidth, height: screenHeight-(view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0) + 80)
+                let mapView = GMSMapView(options:options)
+                
                 self.view.addSubview(mapView)
                 
                 //MARK: Set starting pin
@@ -139,9 +166,9 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
                 marker1.map = mapView
                 
                 // MARK: Send Location to Austins API
-                Alamofire.request("https://tripcharge.herokuapp.com/start/lat/\(latitude)/long/\(Longitude)/end/address/\(EndAddress)").responseJSON { response in
+                AF.request("https://tripcharge.herokuapp.com/start/lat/\(latitude)/long/\(Longitude)/end/address/\(EndAddress)").responseData { response in
                     
-                    guard response.result.error == nil else {
+                    guard response.error == nil else {
                         // got an error in getting the data, need to handle it
                         let alertController = UIAlertController(title: "Invalid Location", message:
                             "Please try something more specific.", preferredStyle: UIAlertController.Style.alert)
@@ -151,7 +178,7 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
                         return
                     }
                     
-                    if let data = response.result.value {
+                    if let data = response.value {
                         
                         let chargers = JSON(data)
                         

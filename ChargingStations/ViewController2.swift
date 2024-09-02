@@ -14,12 +14,45 @@ import CoreLocation
 
 class ViewController2: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate, GMSMapViewDelegate {
 
-    var locationManager = CLLocationManager()
+    let locationManager = CLLocationManager()
     
     var latitude = 0.00
     var Longitude = 0.00
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse:
+            locationManager.requestLocation()
+        case .denied, .restricted:
+            // Handle the case where the user has denied access
+            print("Location services denied or restricted.")
+            disableLocationFeatures()
+        case .notDetermined:
+            // This case should be handled in viewDidLoad or similar
+            locationManager.requestWhenInUseAuthorization()
+        case .authorizedAlways:
+            print("always")
+        @unknown default:
+            // Handle any future cases
+            break
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            latitude = location.coordinate.latitude
+            Longitude = location.coordinate.longitude
+            print("User's current location: \(latitude), \(Longitude)")
+            // Use these coordinates as needed in your app
+            searchChargers()
+        }
+    }
+
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error getting location: \(error.localizedDescription)")
+    }
+    
+    func disableLocationFeatures() {
         let alertController = UIAlertController(title: "Trip Charge", message:
             "Please allow location access to find charging stations.", preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: "Settings", style: .default) { (UIAlertAction) in
@@ -28,13 +61,6 @@ class ViewController2: UIViewController, CLLocationManagerDelegate, UITextFieldD
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default,handler: nil))
         
         self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location11 = locations.first {
-            latitude = location11.coordinate.latitude
-            Longitude = location11.coordinate.longitude
-        }
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
@@ -60,16 +86,13 @@ class ViewController2: UIViewController, CLLocationManagerDelegate, UITextFieldD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        latitude = (locationManager.location?.coordinate.latitude)!
-        Longitude = (locationManager.location?.coordinate.longitude)!
-        
-        
         locationManager.delegate = self
-        locationManager.requestLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        
+        locationManager.requestLocation()
+    }
+    
+    func searchChargers() {
         
         if Connectivity.isConnectedToInternet {
         
@@ -77,10 +100,14 @@ class ViewController2: UIViewController, CLLocationManagerDelegate, UITextFieldD
             let screenSize: CGRect = UIScreen.main.bounds
             let screenWidth = screenSize.width
             let screenHeight = screenSize.height
+            let topNavHeight = UIApplication.shared.delegate?.window??.safeAreaInsets.bottom ?? 0
             
             // MARK: Google Maps
-            let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: Longitude, zoom: 12.0)
-            let mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.maxY + 40, width: screenWidth, height: screenHeight - UIApplication.shared.statusBarFrame.maxY + 40), camera: camera)
+            let options = GMSMapViewOptions()
+            options.camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: Longitude, zoom: 12.0)
+            options.frame = CGRect(x: 0, y: topNavHeight + 60, width: screenWidth, height: screenHeight - (topNavHeight + 60))
+            let mapView = GMSMapView(options:options)
+            
             self.view.addSubview(mapView)
             
             //MARK: Set current location pin
@@ -94,35 +121,46 @@ class ViewController2: UIViewController, CLLocationManagerDelegate, UITextFieldD
             
             //MARK: Send Location to Austins API
             // check if connectivity add popup
-            Alamofire.request("https://tripcharge.herokuapp.com/lat/\(latitude)/long/\(Longitude)").responseJSON { response in
+            AF.request("https://tripcharge.herokuapp.com/lat/\(latitude)/long/\(Longitude)").responseData { response in
                 
-                if (response.result.value as! Array<Any>).isEmpty {
-                    let alertController = UIAlertController(title: "Trip Charge", message: "No Stations Found", preferredStyle: UIAlertController.Style.alert)
+                guard response.error == nil else {
+                    // got an error in getting the data, need to handle it
+                    let alertController = UIAlertController(title: "Something went wrong", message:
+                        "Please try again later.", preferredStyle: UIAlertController.Style.alert)
                     alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                     
                     self.present(alertController, animated: true, completion: nil)
-                } else {
+                    return
+                }
+                
+                if let data = response.value {
                     
-                    //MARK: Add pins for each charging station location
-                    if let Chargers = response.result.value {
-                        for Charger in Chargers as! [AnyObject] {
+                    let chargers = JSON(data)
+                    
+                    if chargers.count == 0 {
+                        let alertController = UIAlertController(title: "Invalid Location", message:
+                            "Please try something more specific.", preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+                        
+                        self.present(alertController, animated: true, completion: nil)
+                    } else {
+                        
+                        for index in 0...chargers.count-1 {
                             
-                            let charger = JSON(Charger)
-                            
-                            let lat = charger["AddressInfo"]["Latitude"].double
-                            let long = charger["AddressInfo"]["Longitude"].double
-                            
+
+                            let lat = chargers[index]["AddressInfo"]["Latitude"].double
+                            let long = chargers[index]["AddressInfo"]["Longitude"].double
+
                             let position = CLLocationCoordinate2DMake(lat!, long!)
                             let marker = GMSMarker(position: position)
 
-                            marker.title = charger["OperatorInfo"]["Title"].string
-                            
+                            marker.title = chargers[index]["OperatorInfo"]["Title"].string
                             marker.snippet =
-                                (charger["Connections"].isEmpty ? "" : String(charger["Connections"][0]["Quantity"].int!)) + " " +
-                                (charger["Connections"].isEmpty ? "" : charger["Connections"][0]["ConnectionType"]["Title"].string!) + "'s | " +
-                                (charger["Connections"].isEmpty ? "" : charger["Connections"][0]["Level"]["Title"].string!)  + " | " +
-                                charger["GeneralComments"].string!
-                            marker.userData = charger["AddressInfo"]["AddressLine1"].string! + " " + charger["AddressInfo"]["Town"].string! + " " + charger["AddressInfo"]["StateOrProvince"].string!
+                                (chargers[index]["Connections"].isEmpty ? "" : String(chargers[index]["Connections"][0]["Quantity"].int!)) + " " +
+                                (chargers[index]["Connections"].isEmpty ? "" : chargers[index]["Connections"][0]["ConnectionType"]["Title"].string!) + "'s | " +
+                                (chargers[index]["Connections"].isEmpty ? "" : chargers[index]["Connections"][0]["Level"]["Title"].string!)  + " | " +
+                                chargers[index]["GeneralComments"].string!
+                            marker.userData = chargers[index]["AddressInfo"]["AddressLine1"].string! + " " + chargers[index]["AddressInfo"]["Town"].string! + " " + chargers[index]["AddressInfo"]["StateOrProvince"].string!
                             marker.map = mapView
                         }
                     }
