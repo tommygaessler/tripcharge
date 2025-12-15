@@ -188,7 +188,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1640;
 				ORGANIZATIONNAME = "Tommy Gaessler";
 				TargetAttributes = {
 					2627A3A31DD3B90700010959 = {
@@ -504,19 +504,22 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 58238CB33286C98B7F136FC3 /* Pods-ChargingStations.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.2.3;
 				DEVELOPMENT_TEAM = KWQZHFS39B;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = ChargingStations/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				INFOPLIST_KEY_CFBundleDisplayName = TripCharge;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2.3;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ChargingStations;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -533,19 +536,22 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D023F104EE86E75E2D519C4E /* Pods-ChargingStations.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.2.3;
 				DEVELOPMENT_TEAM = KWQZHFS39B;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = ChargingStations/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				INFOPLIST_KEY_CFBundleDisplayName = TripCharge;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2.3;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ChargingStations;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -562,7 +568,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B0BD0B99D9081FD2B604AAA /* Pods-ChargingStationsTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ChargingStationsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -581,7 +586,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0B074A5236D8DCB040B9762F /* Pods-ChargingStationsTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ChargingStationsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

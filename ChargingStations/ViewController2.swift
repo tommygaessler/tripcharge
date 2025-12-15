@@ -121,7 +121,7 @@ class ViewController2: UIViewController, CLLocationManagerDelegate, UITextFieldD
             
             //MARK: Send Location to Austins API
             // check if connectivity add popup
-            AF.request("https://tripcharge.herokuapp.com/lat/\(latitude)/long/\(Longitude)").responseData { response in
+            AF.request("https://cojp6jd6qc.execute-api.us-west-1.amazonaws.com/lat/\(latitude)/long/\(Longitude)").responseData { response in
                 
                 guard response.error == nil else {
                     // got an error in getting the data, need to handle it

@@ -166,7 +166,7 @@ class ViewController3: UIViewController, CLLocationManagerDelegate, UITextFieldD
                 marker1.map = mapView
                 
                 // MARK: Send Location to Austins API
-                AF.request("https://tripcharge.herokuapp.com/start/lat/\(latitude)/long/\(Longitude)/end/address/\(EndAddress)").responseData { response in
+                AF.request("https://cojp6jd6qc.execute-api.us-west-1.amazonaws.com/start/lat/\(latitude)/long/\(Longitude)/end/address/\(EndAddress)").responseData { response in
                     
                     guard response.error == nil else {
                         // got an error in getting the data, need to handle it
